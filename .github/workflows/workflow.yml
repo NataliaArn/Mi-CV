@@ -1,0 +1,28 @@
+name: Despliega a Azure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v2
+
+      - name: Copiar archivo mediante SSH password
+        uses: appleboy/scp-action@v0.1.4
+        env:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+        with:
+          KEY: ${{ secrets.SSHKEY }}
+          source: "index.html"
+          target: "/var/www/html"
+
+      - name: Reiniciar Apache
+        run: |
+          ssh -i ${{ secrets.SSHKEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p ${{ secrets.PORT }} 'sudo service apache2 restart'
