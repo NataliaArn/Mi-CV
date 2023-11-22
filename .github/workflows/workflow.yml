@@ -22,7 +22,3 @@ jobs:
           KEY: ${{ secrets.SSHKEY }}
           source: "index.html"
           target: "/var/www/html"
-
-      - name: Reiniciar Apache
-        run: |
-          ssh -i ${{ secrets.SSHKEY }} -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p ${{ secrets.PORT }} 'sudo service apache2 restart'
