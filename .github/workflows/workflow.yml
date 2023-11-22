@@ -25,4 +25,4 @@ jobs:
 
       - name: Reiniciar Apache
         run: |
-          ssh -i ${{ secrets.SSHKEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p ${{ secrets.PORT }} 'sudo service apache2 restart'
+          ssh -i ${{ secrets.SSHKEY }} -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p ${{ secrets.PORT }} 'sudo service apache2 restart'
