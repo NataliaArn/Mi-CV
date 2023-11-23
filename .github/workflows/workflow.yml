@@ -21,4 +21,4 @@ jobs:
         with:
           KEY: ${{ secrets.SSHKEY }}
           source: "index.html"
-          target: "/var/www/html"
+          target: "/home/dawservernat"
